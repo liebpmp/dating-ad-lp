@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Match auf Zypern ☀️</title>
+    <meta name="description" content="Jungunternehmer auf Zypern sucht die richtige Frau. Ehrlich, direkt, kein Bullshit.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #E8513D;
+            --primary-hover: #d4442f;
+            --dark: #0F0F0F;
+            --dark-card: #1A1A1A;
+            --dark-lighter: #252525;
+            --text: #FFFFFF;
+            --text-muted: #A0A0A0;
+            --accent-green: #4ADE80;
+            --accent-gold: #FBBF24;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .funnel-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 24px 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--dark-lighter);
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #FF6B5A);
+            transition: width 0.4s ease;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+        .back-btn.hidden { display: none; }
+
+        /* Typography */
+        .screen-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .screen-title {
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .screen-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        .highlight { color: var(--primary); }
+        .highlight-green { color: var(--accent-green); }
+        .highlight-gold { color: var(--accent-gold); }
+
+        /* CTA Button */
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            margin-top: auto;
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .cta-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .cta-btn:active { transform: translateY(0); }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            margin-top: 12px;
+        }
+
+        .cta-btn.secondary:hover { border-color: rgba(255,255,255,0.4); }
+
+        /* Choice Cards (Perspective-style) */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .choice-card {
+            background: var(--dark-card);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .choice-card:hover { border-color: var(--primary); background: rgba(232,81,61,0.08); }
+        .choice-card.selected { border-color: var(--primary); background: rgba(232,81,61,0.12); }
+
+        .choice-icon { font-size: 24px; flex-shrink: 0; }
+
+        .choice-text {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .choice-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* Feature List */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--dark-card);
+            padding: 16px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .feature-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-content h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .feature-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Photo Section */
+        .photo-section {
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .photo-overlay h3 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .photo-overlay p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Bonus Badge */
+        .bonus-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(251,191,36,0.15);
+            color: var(--accent-gold);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* Checklist */
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(74,222,128,0.15);
+            color: var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 16px 18px;
+            background: var(--dark-card);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #555;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        /* Trust Footer */
+        .trust-footer {
+            text-align: center;
+            padding: 16px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .trust-footer span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Divider */
+        .divider {
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            margin: 20px 0;
+        }
+
+        /* Quote */
+        .quote-block {
+            background: var(--dark-card);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+            padding: 18px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Screen-specific spacer */
+        .spacer { flex: 1; }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+</div>
+
+<button class="back-btn hidden" id="backBtn" onclick="goBack()">←</button>
+
+<div class="funnel-container">
+
+    <!-- SCREEN 1: Hook -->
+    <div class="screen active" id="screen-1">
+        <div class="screen-emoji">☀️</div>
+        <h1 class="screen-title">Single, Anfang 20, und Dating-Apps <span class="highlight">gehen dir auf die Nerven?</span></h1>
+        <p class="screen-subtitle">Dann könnte das hier interessant für dich sein. Ein Jungunternehmer auf Zypern sucht auf seine eigene Art die richtige Frau. Ehrlich, direkt, kein Bullshit.</p>
+        
+        <div class="quote-block">
+            "Ich mach den ganzen Tag Ads für Unternehmen. Irgendwann dachte ich mir — warum nicht einfach eine schalten um die richtige Frau zu finden?"
+        </div>
+
+        <div class="spacer"></div>
+        <button class="cta-btn" onclick="goTo(2)">Das klingt spannend → Weiter</button>
+        <div class="trust-footer"><span>🔒 100% unverbindlich · Kein Spam</span></div>
+    </div>
+
+    <!-- SCREEN 2: Pain/Qualifying -->
+    <div class="screen" id="screen-2">
+        <div class="screen-emoji">🤔</div>
+        <h1 class="screen-title">Kommt dir das <span class="highlight">bekannt vor?</span></h1>
+        <p class="screen-subtitle">Wähl aus was auf dich zutrifft:</p>
+
+        <div class="choices">
+            <div class="choice-card" onclick="selectChoice(this)">
+                <span class="choice-icon">😩</span>
+                <div>
+                    <div class="choice-text">Dating-Apps sind nur noch Zeitverschwendung</div>
+                    <div class="choice-sub">Endlos swipen, Ghosting, fake Profile...</div>
+                </div>
+            </div>
+            <div class="choice-card" onclick="selectChoice(this)">
+                <span class="choice-icon">🎭</span>
+                <div>
+                    <div class="choice-text">Die Typen geben sich anders als sie sind</div>
+                    <div class="choice-sub">Auf Fotos ganz anders, beim Date null Substanz</div>
+                </div>
+            </div>
+            <div class="choice-card" onclick="selectChoice(this)">
+                <span class="choice-icon">💤</span>
+                <div>
+                    <div class="choice-text">Die Gespräche sind einfach langweilig</div>
+                    <div class="choice-sub">"Hey, wie geht's?" — Mehr kommt nicht</div>
+                </div>
+            </div>
+            <div class="choice-card" onclick="selectChoice(this)">
+                <span class="choice-icon">✨</span>
+                <div>
+                    <div class="choice-text">Ich will jemanden mit echten Ambitionen</div>
+                    <div class="choice-sub">Nicht nur "chillen" — sondern wirklich was aufbauen</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="cta-btn" onclick="goTo(3)">Ja, kenn ich → Weiter</button>
+    </div>
+
+    <!-- SCREEN 3: Das erwartet dich bei mir -->
+    <div class="screen" id="screen-3">
+        <div class="screen-emoji">🏝️</div>
+        <h1 class="screen-title">Das erwartet dich <span class="highlight">bei mir</span></h1>
+        <p class="screen-subtitle">Kein Pitch — einfach ehrlich wer ich bin und was mich ausmacht:</p>
+
+        <div class="feature-list">
+            <div class="feature-item">
+                <span class="feature-icon">🚀</span>
+                <div class="feature-content">
+                    <h4>Jungunternehmer mit großen Zielen</h4>
+                    <p>Mehrere Firmen aufgebaut, lebe auf Zypern, baue mit einem geilen Team echte Produkte</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">💎</span>
+                <div class="feature-content">
+                    <h4>Stabilität & Sicherheit</h4>
+                    <p>Kein "Irgendwann mal" — echte Substanz, klare Richtung, Verantwortung</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🤝</span>
+                <div class="feature-content">
+                    <h4>Ehrlichkeit & Direktheit</h4>
+                    <p>Kein Spielchen, kein Ghosting. Was ich sage, meine ich auch</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">☀️</span>
+                <div class="feature-content">
+                    <h4>Lifestyle auf Zypern</h4>
+                    <p>Sonne, Meer, gutes Essen — und ein Umfeld voller interessanter, motivierter Menschen</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🧠</span>
+                <div class="feature-content">
+                    <h4>Tiefe & Humor</h4>
+                    <p>Ruhig, aber wenn es spannend wird — dann richtig. Und ja, ich kann kochen. So mittel.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="cta-btn" onclick="goTo(4)">Klingt gut → Weiter</button>
+    </div>
+
+    <!-- SCREEN 4: Das bringst du idealerweise mit -->
+    <div class="screen" id="screen-4">
+        <div class="screen-emoji">💫</div>
+        <h1 class="screen-title">Das bringst du <span class="highlight">idealerweise mit</span></h1>
+        <p class="screen-subtitle">Kein Anforderungskatalog — aber wenn du dich hier wiedererkennst, könnte es matchen:</p>
+
+        <div class="checklist">
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>lebensfroh</strong> und strahlst das auch aus</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du hast <strong>Humor</strong> und nimmst nicht alles bierernst</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du hast <strong>Bock auf Abenteuer</strong> und neue Erfahrungen</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>ehrlich</strong> und weißt was du willst</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du suchst <strong>Substanz</strong>, nicht nur Oberfläche</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>Anfang bis Mitte 20</strong> und offen für was Neues</span>
+            </div>
+        </div>
+
+        <div class="bonus-badge">⭐ Bonuspunkte wenn du blond bist 😏</div>
+
+        <div class="spacer"></div>
+        <button class="cta-btn" onclick="goTo(5)">Das bin ich → Weiter</button>
+    </div>
+
+    <!-- SCREEN 5: So läuft das ab -->
+    <div class="screen" id="screen-5">
+        <div class="screen-emoji">🍷</div>
+        <h1 class="screen-title">So läuft das <span class="highlight">ab</span></h1>
+        <p class="screen-subtitle">Ganz entspannt, null Druck:</p>
+
+        <div class="feature-list">
+            <div class="feature-item">
+                <span class="feature-icon">1️⃣</span>
+                <div class="feature-content">
+                    <h4>Du trägst dich ein</h4>
+                    <p>Name, ein paar Infos über dich, und wie man dich erreicht</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">2️⃣</span>
+                <div class="feature-content">
+                    <h4>Wir schreiben uns</h4>
+                    <p>Ganz unverbindlich. Kein Druck, kein Pitch — einfach kennenlernen</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">3️⃣</span>
+                <div class="feature-content">
+                    <h4>Wenn's matcht: Vino am Strand</h4>
+                    <p>Ein Glas Wein, Sonnenuntergang, und schauen ob die Chemie stimmt 🌅</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            "Ich glaube, die besten Verbindungen entstehen nicht durch Algorithmen — sondern durch Ehrlichkeit und den Mut, einfach mal Hallo zu sagen."
+        </div>
+
+        <div class="spacer"></div>
+        <button class="cta-btn" onclick="goTo(6)">Bin dabei → Eintragen</button>
+    </div>
+
+    <!-- SCREEN 6: Formular -->
+    <div class="screen" id="screen-6">
+        <div class="screen-emoji">📩</div>
+        <h1 class="screen-title">Fast geschafft — <span class="highlight">trag dich ein!</span></h1>
+        <p class="screen-subtitle">Ich melde mich persönlich bei dir. Versprochen.</p>
+
+        <form id="dateForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label>Dein Vorname</label>
+                <input type="text" name="name" placeholder="Wie heißt du?" required>
+            </div>
+            <div class="form-group">
+                <label>Dein Alter</label>
+                <input type="number" name="age" placeholder="z.B. 24" min="18" max="40" required>
+            </div>
+            <div class="form-group">
+                <label>Dein Instagram</label>
+                <input type="text" name="instagram" placeholder="@deinname">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp oder Telefon</label>
+                <input type="tel" name="phone" placeholder="+49 ...">
+            </div>
+            <div class="form-group">
+                <label>Was sollte ich über dich wissen? 💬</label>
+                <textarea name="about" placeholder="Erzähl mir kurz was über dich..."></textarea>
+            </div>
+
+            <div class="spacer"></div>
+            <button type="submit" class="cta-btn">Absenden & auf Vino warten 🍷</button>
+            <div class="trust-footer"><span>🔒 Deine Daten bleiben privat · Kein Spam · Nur ich sehe das</span></div>
+        </form>
+    </div>
+
+    <!-- SCREEN 7: Danke -->
+    <div class="screen" id="screen-7">
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+            <div class="screen-emoji">🎉</div>
+            <h1 class="screen-title" style="text-align:center;">Du bist drin!</h1>
+            <p class="screen-subtitle" style="text-align:center; max-width:320px;">Danke fürs Eintragen! Ich schau mir dein Profil an und melde mich persönlich bei dir. Bis bald — vielleicht ja bei einem Vino am Strand? 🌅</p>
+            
+            <div class="stats-row" style="width:100%; margin-top:20px;">
+                <div class="stat-card">
+                    <div class="stat-number" style="font-size:24px;">📍</div>
+                    <div class="stat-label">Paphos, Zypern</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="font-size:24px;">🍷</div>
+                    <div class="stat-label">Vino wartet</div>
+                </div>
+            </div>
+
+            <div style="margin-top:32px;">
+                <a href="https://instagram.com/tomliebofficial" target="_blank" class="cta-btn" style="display:inline-block; text-decoration:none; text-align:center;">Folg mir auf Instagram @tomliebofficial</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let currentScreen = 1;
+    const totalScreens = 7;
+    const formScreen = 6;
+
+    function updateProgress() {
+        const progress = ((currentScreen - 1) / (totalScreens - 1)) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+        
+        const backBtn = document.getElementById('backBtn');
+        if (currentScreen > 1 && currentScreen < 7) {
+            backBtn.classList.remove('hidden');
+        } else {
+            backBtn.classList.add('hidden');
+        }
+    }
+
+    function goTo(screen) {
+        document.getElementById('screen-' + currentScreen).classList.remove('active');
+        currentScreen = screen;
+        document.getElementById('screen-' + currentScreen).classList.add('active');
+        updateProgress();
+        window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+        if (currentScreen > 1) {
+            goTo(currentScreen - 1);
+        }
+    }
+
+    function selectChoice(el) {
+        el.classList.toggle('selected');
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const obj = {};
+        data.forEach((val, key) => obj[key] = val);
+        
+        // Log to console (replace with actual webhook/backend)
+        console.log('Form submitted:', obj);
+        
+        // Could send to webhook:
+        // fetch('YOUR_WEBHOOK_URL', { method: 'POST', body: JSON.stringify(obj), headers: {'Content-Type':'application/json'} });
+        
+        goTo(7);
+    }
+
+    // Swipe support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 80) {
+            if (diff > 0 && currentScreen < formScreen) goTo(currentScreen + 1);
+            if (diff < 0 && currentScreen > 1) goBack();
+        }
+    });
+
+    // Keyboard nav
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' && currentScreen < formScreen) goTo(currentScreen + 1);
+        if (e.key === 'ArrowLeft' && currentScreen > 1) goBack();
+    });
+
+    updateProgress();
+</script>
+
+</body>
+</html>
