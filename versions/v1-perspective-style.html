@@ -121,7 +121,22 @@
         .highlight-green { color: var(--accent-green); }
         .highlight-gold { color: var(--accent-gold); }
 
-        /* CTA Button */
+        /* CTA Button — Sticky at bottom */
+        .cta-wrap {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 20px 28px;
+            background: linear-gradient(transparent, var(--dark) 30%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
         .cta-btn {
             background: var(--primary);
             color: white;
@@ -133,21 +148,27 @@
             cursor: pointer;
             width: 100%;
             transition: all 0.2s;
-            margin-top: auto;
-            margin-bottom: 20px;
             letter-spacing: 0.3px;
         }
 
         .cta-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
         .cta-btn:active { transform: translateY(0); }
 
-        .cta-btn.secondary {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.2);
-            margin-top: 12px;
+        /* Hero photo */
+        .hero-photo {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: cover;
+            max-height: 380px;
         }
 
-        .cta-btn.secondary:hover { border-color: rgba(255,255,255,0.4); }
+        /* Bottom padding so content doesn't hide behind sticky CTA */
+        .screen-content {
+            padding-bottom: 100px;
+        }
 
         /* Choice Cards (Perspective-style) */
         .choices {
@@ -427,17 +448,21 @@
 
     <!-- SCREEN 1: Hook -->
     <div class="screen active" id="screen-1">
-        <div class="screen-emoji">☀️</div>
-        <h1 class="screen-title">Single, Anfang 20, und Dating-Apps <span class="highlight">gehen dir auf die Nerven?</span></h1>
-        <p class="screen-subtitle">Dann könnte das hier interessant für dich sein. Ein Jungunternehmer auf Zypern sucht auf seine eigene Art die richtige Frau. Ehrlich, direkt, kein Bullshit.</p>
-        
-        <div class="quote-block">
-            "Ich mach den ganzen Tag Ads für Unternehmen. Irgendwann dachte ich mir — warum nicht einfach eine schalten um die richtige Frau zu finden?"
+        <div class="screen-content">
+            <div class="screen-emoji">☀️</div>
+            <img class="hero-photo" src="tom-mountain.jpg" alt="Jungunternehmer auf Zypern">
+            <h1 class="screen-title">Single, Anfang 20, und Dating-Apps <span class="highlight">gehen dir auf die Nerven?</span></h1>
+            <p class="screen-subtitle">Dann könnte das hier interessant für dich sein. Ein Jungunternehmer auf Zypern sucht auf seine eigene Art die richtige Frau. Ehrlich, direkt, kein Bullshit.</p>
+            
+            <div class="quote-block">
+                "Ich mach den ganzen Tag Ads für Unternehmen. Irgendwann dachte ich mir — warum nicht einfach eine schalten um die richtige Frau zu finden?"
+            </div>
         </div>
 
-        <div class="spacer"></div>
-        <button class="cta-btn" onclick="goTo(2)">Das klingt spannend → Weiter</button>
-        <div class="trust-footer"><span>🔒 100% unverbindlich · Kein Spam</span></div>
+        <div class="cta-wrap">
+            <button class="cta-btn" onclick="goTo(2)">Das klingt spannend → Weiter</button>
+            <div class="trust-footer"><span>🔒 100% unverbindlich · Kein Spam</span></div>
+        </div>
     </div>
 
     <!-- SCREEN 2: Pain/Qualifying -->
@@ -477,7 +502,9 @@
             </div>
         </div>
 
-        <button class="cta-btn" onclick="goTo(3)">Ja, kenn ich → Weiter</button>
+        <div class="cta-wrap">
+            <button class="cta-btn" onclick="goTo(3)">Ja, kenn ich → Weiter</button>
+        </div>
     </div>
 
     <!-- SCREEN 3: Das erwartet dich bei mir -->
@@ -524,7 +551,9 @@
             </div>
         </div>
 
-        <button class="cta-btn" onclick="goTo(4)">Klingt gut → Weiter</button>
+        <div class="cta-wrap">
+            <button class="cta-btn" onclick="goTo(4)">Klingt gut → Weiter</button>
+        </div>
     </div>
 
     <!-- SCREEN 4: Das bringst du idealerweise mit -->
@@ -562,8 +591,9 @@
 
         <div class="bonus-badge">⭐ Bonuspunkte wenn du blond bist 😏</div>
 
-        <div class="spacer"></div>
-        <button class="cta-btn" onclick="goTo(5)">Das bin ich → Weiter</button>
+        <div class="cta-wrap">
+            <button class="cta-btn" onclick="goTo(5)">Das bin ich → Weiter</button>
+        </div>
     </div>
 
     <!-- SCREEN 5: So läuft das ab -->
@@ -600,8 +630,9 @@
             "Ich glaube, die besten Verbindungen entstehen nicht durch Algorithmen — sondern durch Ehrlichkeit und den Mut, einfach mal Hallo zu sagen."
         </div>
 
-        <div class="spacer"></div>
-        <button class="cta-btn" onclick="goTo(6)">Bin dabei → Eintragen</button>
+        <div class="cta-wrap">
+            <button class="cta-btn" onclick="goTo(6)">Bin dabei → Eintragen</button>
+        </div>
     </div>
 
     <!-- SCREEN 6: Formular -->
