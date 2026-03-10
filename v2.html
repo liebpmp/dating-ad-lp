@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Match auf Zypern ☀️</title>
+    <meta name="description" content="Jungunternehmer auf Zypern sucht die richtige Frau. Ehrlich, direkt, kein Bullshit.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #E8513D;
+            --primary-hover: #d4442f;
+            --primary-glow: rgba(232,81,61,0.3);
+            --dark: #0A0A0A;
+            --dark-card: #141414;
+            --dark-lighter: #1E1E1E;
+            --dark-border: rgba(255,255,255,0.08);
+            --text: #FFFFFF;
+            --text-muted: #8A8A8A;
+            --text-secondary: #B0B0B0;
+            --accent-green: #4ADE80;
+            --accent-gold: #FBBF24;
+            --gradient-hero: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.8) 60%, rgba(10,10,10,1) 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 24px 48px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.4) 40%, rgba(10,10,10,0.95) 85%, rgba(10,10,10,1) 100%),
+                url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80') center/cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232,81,61,0.15);
+            border: 1px solid rgba(232,81,61,0.3);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            max-width: 400px;
+        }
+
+        .hero .highlight { color: var(--primary); }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 480px;
+            transition: all 0.2s;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 8px 30px var(--primary-glow); }
+
+        .btn-secondary {
+            display: block;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 12px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .btn-secondary:hover { color: white; }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 80px 24px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+
+        /* ===== PAIN SECTION ===== */
+        .pain-section {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .pain-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pain-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--dark-lighter);
+            border-radius: 14px;
+            border: 1px solid var(--dark-border);
+        }
+
+        .pain-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .pain-text h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pain-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== BENEFITS (Das erwartet dich) ===== */
+        .benefits-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .benefit-card {
+            padding: 24px;
+            background: var(--dark-card);
+            border-radius: 16px;
+            border: 1px solid var(--dark-border);
+            transition: border-color 0.3s;
+        }
+
+        .benefit-card:hover { border-color: rgba(232,81,61,0.3); }
+
+        .benefit-icon {
+            font-size: 32px;
+            margin-bottom: 14px;
+        }
+
+        .benefit-card h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== CHECKLIST (Das bringst du mit) ===== */
+        .checklist-section {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--dark-lighter);
+            border-radius: 12px;
+            border: 1px solid var(--dark-border);
+        }
+
+        .check-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(74,222,128,0.12);
+            color: var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .check-item span {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .bonus-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(251,191,36,0.12);
+            border: 1px solid rgba(251,191,36,0.25);
+            color: var(--accent-gold);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 24px;
+        }
+
+        /* ===== PROCESS ===== */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 32px;
+            position: relative;
+        }
+
+        .process-step:last-child { padding-bottom: 0; }
+
+        .step-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-connector {
+            width: 2px;
+            flex: 1;
+            background: rgba(232,81,61,0.2);
+            margin-top: 8px;
+        }
+
+        .process-step:last-child .step-connector { display: none; }
+
+        .step-content {
+            padding-top: 6px;
+        }
+
+        .step-content h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-section {
+            text-align: center;
+            padding: 60px 24px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .quote-marks {
+            font-size: 48px;
+            color: var(--primary);
+            opacity: 0.5;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .quote-text {
+            font-size: 20px;
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FORM SECTION ===== */
+        .form-section {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 24px 80px;
+        }
+
+        .form-inner {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 16px 18px;
+            background: var(--dark-lighter);
+            border: 2px solid var(--dark-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #444;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 110px;
+        }
+
+        .form-trust {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ===== SUCCESS OVERLAY ===== */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 24px;
+            flex-direction: column;
+        }
+
+        .success-overlay.active { display: flex; }
+
+        .success-emoji { font-size: 64px; margin-bottom: 24px; }
+
+        .success-overlay h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .success-overlay p {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 320px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .success-overlay .btn-primary {
+            max-width: 320px;
+        }
+
+        /* ===== FLOATING CTA ===== */
+        .floating-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 24px 24px;
+            background: linear-gradient(transparent, var(--dark) 30%);
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .floating-cta .btn-primary {
+            max-width: 400px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            width: 48px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            margin-bottom: 32px;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1px;
+            background: var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            background: var(--dark-card);
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (min-width: 640px) {
+            .hero h1 { font-size: 40px; }
+            .section-title { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">☀️ Paphos, Zypern</div>
+            <h1>Single & Dating-Apps <span class="highlight">gehen dir auf die Nerven?</span></h1>
+            <p>Ein Jungunternehmer auf Zypern sucht auf seine eigene Art die richtige Frau. Ehrlich, direkt, kein Bullshit — eine Ad statt einer App.</p>
+            <a href="#form" class="btn-primary">Jetzt kennenlernen →</a>
+            <a href="#about" class="btn-secondary">Erst mehr erfahren ↓</a>
+        </div>
+    </section>
+
+    <!-- PAIN POINTS -->
+    <section class="section pain-section" id="about">
+        <div class="fade-up">
+            <div class="section-label">😩 Kommt dir das bekannt vor?</div>
+            <h2 class="section-title">Dating 2026 ist <span style="color:var(--primary)">broken</span></h2>
+            <p class="section-subtitle">Du bist nicht zu wählerisch. Das Angebot ist einfach mies.</p>
+        </div>
+
+        <div class="pain-grid fade-up">
+            <div class="pain-card">
+                <div class="pain-icon">🔄</div>
+                <div class="pain-text">
+                    <h4>Endlos swipen, null Ergebnis</h4>
+                    <p>Stunden auf Tinder. Hunderte Profile. Vielleicht ein Date alle drei Wochen — und das war's dann auch nicht.</p>
+                </div>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🎭</div>
+                <div class="pain-text">
+                    <h4>Fake-Profile & Ghosting</h4>
+                    <p>Die Typen sehen auf Fotos komplett anders aus. Oder sie ghosten nach 3 Nachrichten. Zeitverschwendung.</p>
+                </div>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">💤</div>
+                <div class="pain-text">
+                    <h4>"Hey, wie geht's?" — Mehr kommt nicht</h4>
+                    <p>Null Substanz, null Mühe. Du willst echte Gespräche mit jemandem der was im Kopf hat.</p>
+                </div>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🎯</div>
+                <div class="pain-text">
+                    <h4>Du suchst Substanz, nicht nur Oberfläche</h4>
+                    <p>Jemand mit echten Ambitionen, Klarheit und Richtung. Nicht nur "chillen und schauen was passiert".</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <div class="quote-section fade-up">
+        <div class="quote-marks">"</div>
+        <p class="quote-text">Ich mach den ganzen Tag Ads für Unternehmen. Irgendwann dachte ich mir — warum nicht einfach eine schalten um die richtige Frau zu finden?</p>
+        <p class="quote-author">— Tom, Jungunternehmer auf Zypern</p>
+    </div>
+
+    <!-- DAS ERWARTET DICH -->
+    <section class="section">
+        <div class="fade-up">
+            <div class="section-label">🏝️ Das erwartet dich</div>
+            <h2 class="section-title">Kurz zu mir — <span style="color:var(--primary)">ehrlich & direkt</span></h2>
+            <p class="section-subtitle">Kein Pitch, kein Flex. Einfach wer ich bin und was mich ausmacht.</p>
+        </div>
+
+        <div class="benefits-grid fade-up">
+            <div class="benefit-card">
+                <div class="benefit-icon">🚀</div>
+                <h4>Jungunternehmer mit großen Zielen</h4>
+                <p>Mehrere Firmen aufgebaut, lebe auf Zypern, baue mit einem geilen Team echte Produkte. Kein "Irgendwann" — ich mach's jetzt.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💎</div>
+                <h4>Stabilität & Sicherheit</h4>
+                <p>Echte Substanz, klare Richtung, Verantwortung. Kein Chaos, sondern jemand der weiß wo er hinwill.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🤝</div>
+                <h4>Ehrlichkeit & Direktheit</h4>
+                <p>Kein Spielchen, kein Ghosting. Was ich sage, meine ich auch. Und wenn's nicht passt, sag ich's auch.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">☀️</div>
+                <h4>Lifestyle auf Zypern</h4>
+                <p>Sonne, Meer, gutes Essen, und ein Umfeld voller interessanter, motivierter Menschen die was aufbauen.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🧠</div>
+                <h4>Tiefe & Humor</h4>
+                <p>Ruhig, aber wenn es spannend wird — dann richtig. Echte Gespräche statt Small Talk. Und ja, ich kann kochen. So mittel.</p>
+            </div>
+        </div>
+
+        <div class="stats-bar fade-up">
+            <div class="stat-item">
+                <div class="stat-number">📍</div>
+                <div class="stat-label">Paphos, Zypern</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">🇩🇪</div>
+                <div class="stat-label">Aus Deutschland</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">🚀</div>
+                <div class="stat-label">Unternehmer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DAS BRINGST DU MIT -->
+    <section class="section checklist-section">
+        <div class="fade-up">
+            <div class="section-label">💫 Passt du dazu?</div>
+            <h2 class="section-title">Das bringst du <span style="color:var(--primary)">idealerweise mit</span></h2>
+            <p class="section-subtitle">Kein Anforderungskatalog — aber wenn du dich hier wiedererkennst, könnte es matchen.</p>
+        </div>
+
+        <div class="checklist fade-up">
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>lebensfroh</strong> und strahlst das auch aus</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du hast <strong>Humor</strong> und nimmst nicht alles bierernst</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du hast <strong>Bock auf Abenteuer</strong> und neue Erfahrungen</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>ehrlich</strong> und weißt was du willst</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du suchst jemanden mit <strong>Substanz</strong>, nicht nur Oberfläche</span>
+            </div>
+            <div class="check-item">
+                <div class="check-icon">✓</div>
+                <span>Du bist <strong>Anfang bis Mitte 20</strong> und offen für was Neues</span>
+            </div>
+        </div>
+
+        <div class="bonus-badge fade-up">⭐ Bonuspunkte wenn du blond bist 😏</div>
+    </section>
+
+    <!-- SO LÄUFT DAS AB -->
+    <section class="section">
+        <div class="fade-up">
+            <div class="section-label">🍷 So läuft das ab</div>
+            <h2 class="section-title">Ganz <span style="color:var(--primary)">entspannt</span></h2>
+            <p class="section-subtitle">Null Druck, null Verpflichtung. Einfach kennenlernen.</p>
+        </div>
+
+        <div class="process-steps fade-up">
+            <div class="process-step">
+                <div class="step-line">
+                    <div class="step-number">1</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div class="step-content">
+                    <h4>Du trägst dich ein</h4>
+                    <p>Dein Name, ein paar Infos über dich, und wie man dich erreicht. Dauert 30 Sekunden.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-line">
+                    <div class="step-number">2</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div class="step-content">
+                    <h4>Wir schreiben uns</h4>
+                    <p>Ganz unverbindlich per WhatsApp oder Instagram. Kein Druck — einfach schauen ob die Wellenlänge stimmt.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-line">
+                    <div class="step-number">3</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div class="step-content">
+                    <h4>Wenn's matcht: Vino am Strand 🌅</h4>
+                    <p>Ein Glas Wein, Sonnenuntergang auf Zypern, und schauen ob die Chemie stimmt. Deal?</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:40px;" class="fade-up">
+            <a href="#form" class="btn-primary">Klingt gut? → Jetzt eintragen</a>
+        </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="form-section" id="form">
+        <div class="form-inner">
+            <div class="fade-up" style="text-align:center; margin-bottom:36px;">
+                <div style="font-size:48px; margin-bottom:16px;">📩</div>
+                <h2 class="section-title" style="text-align:center;">Bereit? <span style="color:var(--primary)">Trag dich ein.</span></h2>
+                <p class="section-subtitle" style="text-align:center;">Ich melde mich persönlich bei dir. Versprochen.</p>
+            </div>
+
+            <form id="dateForm" onsubmit="submitForm(event)" class="fade-up">
+                <div class="form-group">
+                    <label>Dein Vorname</label>
+                    <input type="text" name="name" placeholder="Wie heißt du?" required>
+                </div>
+                <div class="form-group">
+                    <label>Dein Alter</label>
+                    <input type="number" name="age" placeholder="z.B. 24" min="18" max="40" required>
+                </div>
+                <div class="form-group">
+                    <label>Dein Instagram</label>
+                    <input type="text" name="instagram" placeholder="@deinname">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp oder Telefon</label>
+                    <input type="tel" name="phone" placeholder="+49 ...">
+                </div>
+                <div class="form-group">
+                    <label>Was sollte ich über dich wissen? 💬</label>
+                    <textarea name="about" placeholder="Erzähl mir kurz was über dich — was macht dich aus?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Absenden & auf Vino warten 🍷</button>
+                <div class="form-trust">🔒 Deine Daten bleiben privat · Kein Spam · Nur ich sehe das</div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FLOATING CTA -->
+    <div class="floating-cta" id="floatingCta">
+        <a href="#form" class="btn-primary">Jetzt eintragen →</a>
+    </div>
+
+    <!-- SUCCESS OVERLAY -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-emoji">🎉</div>
+        <h2>Du bist drin!</h2>
+        <p>Danke fürs Eintragen! Ich schau mir dein Profil an und melde mich persönlich bei dir. Bis bald — vielleicht ja bei einem Vino am Strand? 🌅</p>
+        <a href="https://instagram.com/tomliebofficial" target="_blank" class="btn-primary" style="text-decoration:none;">Folg mir auf Instagram →</a>
+    </div>
+
+    <script>
+        // Form submission
+        function submitForm(e) {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const obj = {};
+            data.forEach((val, key) => obj[key] = val);
+            console.log('Form submitted:', obj);
+            
+            // Replace with webhook:
+            // fetch('YOUR_WEBHOOK_URL', { method:'POST', body:JSON.stringify(obj), headers:{'Content-Type':'application/json'} });
+
+            document.getElementById('successOverlay').classList.add('active');
+        }
+
+        // Floating CTA visibility
+        const floatingCta = document.getElementById('floatingCta');
+        const formSection = document.getElementById('form');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const formTop = formSection.offsetTop;
+            const windowHeight = window.innerHeight;
+
+            if (scrollY > windowHeight * 0.5 && scrollY < formTop - windowHeight * 0.3) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        });
+
+        // Scroll-triggered animations
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
