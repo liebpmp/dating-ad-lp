@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dein Match auf Zypern ☀️</title>
     <meta name="description" content="Jungunternehmer auf Zypern sucht die richtige Frau. Ehrlich, direkt, kein Bullshit.">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W6G3GHGX');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1321179383220173');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1321179383220173&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -432,6 +456,10 @@
     </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6G3GHGX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
     <!-- ===== HERO ===== -->
     <div class="container">
@@ -642,6 +670,51 @@
     </div>
 
     <script>
+        // === Facebook Conversion API ===
+        const FB_PIXEL_ID = '1321179383220173';
+        const FB_TOKEN = 'EAAVEZCLBtNm0BRHte0bQwNichwuiypdQZC7JsMiY4SqFjq8iY7R37n6GcBuG0sufG2pRcRMJwNFTjpGZAkOSYrIOisfMZCsG6ZBkMIpnmCx7cwUqh6qYu8CdRVMMP7BSFecyRVSoYPuH6DG7lOmmLj71OOiWO26vDrFoCtw8gB8CcHzNBF8BkzNsdp4SG1gZDZD';
+
+        async function sha256(str) {
+            const buf = new TextEncoder().encode(str.trim().toLowerCase());
+            const hash = await crypto.subtle.digest('SHA-256', buf);
+            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function getCookie(name) {
+            const m = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return m ? m[2] : null;
+        }
+
+        async function sendFBCAPI(formData, eventId) {
+            const eventTime = Math.floor(Date.now() / 1000);
+            const userData = { client_user_agent: navigator.userAgent };
+            const fbp = getCookie('_fbp');
+            const fbc = getCookie('_fbc');
+            if (fbp) userData.fbp = fbp;
+            if (fbc) userData.fbc = fbc;
+            if (formData.name) userData.fn = [await sha256(formData.name)];
+            if (formData.phone && formData.phone.match(/^\+?\d/)) {
+                userData.ph = [await sha256(formData.phone.replace(/[\s\-]/g, ''))];
+            }
+            const payload = {
+                data: [{
+                    event_name: 'Lead',
+                    event_time: eventTime,
+                    event_id: eventId,
+                    action_source: 'website',
+                    event_source_url: window.location.href,
+                    user_data: userData
+                }]
+            };
+            try {
+                const res = await fetch(
+                    'https://graph.facebook.com/v21.0/' + FB_PIXEL_ID + '/events?access_token=' + FB_TOKEN,
+                    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }
+                );
+                console.log('FB CAPI:', await res.json());
+            } catch (err) { console.log('FB CAPI error:', err); }
+        }
+
         let currentStep = 1;
 
         function openForm() {
@@ -695,7 +768,23 @@
             };
 
             console.log('Submitted:', data);
-            // fetch('YOUR_WEBHOOK', { method:'POST', body:JSON.stringify(data), headers:{'Content-Type':'application/json'} });
+
+            // GTM dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'form_submit', form_name: 'dating_lead_v3', ...data });
+
+            // Zapier Webhook
+            fetch('https://hooks.zapier.com/hooks/catch/10412562/unbzmq4/', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).catch(err => console.log('Webhook error:', err));
+
+            // Meta Pixel Lead Event
+            const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            fbq('track', 'Lead', {}, { eventID: eventId });
+
+            // Facebook Conversion API
+            sendFBCAPI(data, eventId);
 
             // Show success
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
