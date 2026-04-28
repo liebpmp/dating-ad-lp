@@ -646,12 +646,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Step 3: Contact -->
             <div class="form-step" id="step3">
                 <div class="form-group">
-                    <label>Dein Instagram</label>
-                    <input type="text" id="f-ig" placeholder="@deinname">
+                    <label>Deine Telefonnummer (mit Ländervorwahl) *</label>
+                    <input type="tel" id="f-phone" placeholder="+49 170 1234567" required>
+                    <span style="color:#999; font-size:12px; margin-top:4px; display:block;">WhatsApp bevorzugt — z.B. +49, +357, +43...</span>
                 </div>
                 <div class="form-group">
-                    <label>WhatsApp oder Telefon</label>
-                    <input type="tel" id="f-phone" placeholder="+49 ...">
+                    <label>Dein Instagram <span style="color:#999; font-weight:400;">(optional)</span></label>
+                    <input type="text" id="f-ig" placeholder="@deinname">
                 </div>
                 <button class="cta-btn" onclick="nextStep(4)">Weiter →</button>
             </div>
@@ -765,12 +766,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         function submitForm() {
+            const phone = document.getElementById('f-phone').value.trim();
+            if (!phone || !phone.match(/^\+\d{6,}/)) {
+                alert('Bitte gib deine Telefonnummer mit Ländervorwahl an (z.B. +49 170 1234567)');
+                return;
+            }
+
             const data = {
                 name: document.getElementById('f-name').value,
                 age: document.getElementById('f-age').value,
                 location: document.getElementById('f-location').value,
+                phone: phone,
                 instagram: document.getElementById('f-ig').value,
-                phone: document.getElementById('f-phone').value,
                 about: document.getElementById('f-about').value
             };
 
